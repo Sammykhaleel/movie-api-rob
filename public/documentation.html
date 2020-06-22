@@ -5,9 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>flixOlogy</title>
   </head>
-  <body>
-    This page is currently under construction... This will be an archive of
-    movies where you can find information of movies you may be interested in...
-    Instructions to come very soon!
+  <body style="font-family: 'Courier New', Courier, monospace;">
+    <p>flixOlogy Documentation</p>
+
+    <p>
+      The flixOlogy REST API, using Express.js, holds and shares the information
+      of movies along with actors, cast and crew using 12 endpoints:
+    </p>
+
+    <p>/movies - GET - all movies titles</p>
+    <p>/movies/info - GET - detailed information about the movies</p>
+    <p>/movies/info/genre - GET - the genres of the movies</p>
+    <p>/castCrew/director/[name] - GET - the name of specified director</p>
+    <p>/users - POST - register a new user and create an account</p>
+    <p>/users - PUT - update user information</p>
+    <p>
+      /users/[name]/favorites - PUT - user can add a specified movie to
+      favorites list
+    </p>
+    <p>
+      /users/favorites - DELETE - users can delete a movie from favorites list
+    </p>
+    <p>/users - DELETE - user can delete their account</p>
+    <p>/castCrew/name - GET - actor information and their resume of movies</p>
+    <p>
+      /movies/info/[actors] - GET - list of actors starring in specified movies
+    </p>
+    <p>
+      /users/[name]/favorites/watchList - PUT - adds a watch list to user
+      favorites list
+    </p>
+    <p>
+      All this data is returned as json format like so: { "movieName:"
+      "Sunshine" }
+    </p>
   </body>
 </html>
