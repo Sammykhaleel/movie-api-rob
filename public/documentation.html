@@ -9,27 +9,42 @@
     <p>flixOlogy Documentation</p>
 
     <p>
-      The flixOlogy REST API, using Express.js, holds and shares the information
-      of movies along with actors, cast and crew using 12 endpoints:
+      The flixOlogy REST API, using Express.js, holds and shares the
+      description, genre and director of each movie along with user information:
     </p>
 
     <p>/movies - GET - all movies and information</p>
-    <p>/movies/genre - GET - the genres of the movies</p>
-    <p>/movies/director/Name - GET - the name of specified director</p>
-    <p>/users - POST - register a new user and create an account</p>
-    <p>/users - PUT - update user information</p>
     <p>
-      /users/username/favoritesMovies - PUT - user can add a specified movie to
+      /movies/title - GET - sends back information of a specific movie by title
+    </p>
+    <p>
+      /directors - GET - the name of all directors in the directors collection
+    </p>
+    <p>
+      /director/Name - GET - sends back information of specified director by
+      name
+    </p>
+    <p>/genres - GET - sends back a list of all genres</p>
+    <p>/genres - GET - sends back information about specific genre by name</p>
+    <p>/users - POST - register a new user and create an account</p>
+    <p>/users/Username - PUT - update user information</p>
+    <p>
+      /users/Username/MoviesID - PUT - user can add a specified movie to
       favorites list
     </p>
     <p>
-      /users/favoritesMovies - DELETE - users can delete a movie from favorites
-      list
+      /users/Username/favoritesMoviesID - DELETE - users can delete a movie from
+      favorites list
     </p>
     <p>/users - DELETE - user can delete their account</p>
     <p>
-      All this data is returned as json format like so: { "movieName:"
-      "Sunshine" }
+      All this data is returned as json format like so: { "_id":
+      "5eff29f2439c43a1a53bded6", "Title": "Interstellar", "Description": "A
+      thief who steals corporate secrets through the use of dream-sharing
+      technology is given the inverse task of planting an idea into the mind of
+      a C.E.O.", "ImageUrl":
+      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SY1000_CR0,0,675,1000_AL_.jpg",
+      "Featured": true }
     </p>
   </body>
 </html>
