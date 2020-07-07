@@ -52,13 +52,10 @@ app.use(
 //   useUnifiedTopology: true,
 // });
 
-mongoose.connect(
-  'mongodb+srv://rmartinez:Coding75@flixology.9mn0j.mongodb.net/flixology?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(morgan('common'));
 
