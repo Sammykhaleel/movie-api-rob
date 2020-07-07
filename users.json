@@ -1,0 +1,6 @@
+{"_id":{"$oid":"5efa3663b7d6176a4c144b2b"},"Username":"cvill","Password":"1233","Email":"cvill@yahoo.com","Birthday":{"$date":"1971-01-10T00:00:00Z"},"FavoriteMovies":[{"$oid":"5ef9d1a2795b21d8ac98673d"},{"$oid":"5ef9d03c795b21d8ac98673b"},{"$oid":"5eff2a4a439c43a1a53bdedb"}]}
+{"_id":{"$oid":"5efa3674b7d6176a4c144b2e"},"Username":null,"Password":null,"Email":null,"Birthday":null,"FavoriteMovies":[{"$oid":"5ef9d0d7795b21d8ac98673c"},{"$oid":"5ef9c599795b21d8ac986733"}]}
+{"_id":{"$oid":"5efa37b0b7d6176a4c144b2f"},"Username":"jgome","Password":"1222","Email":"jgome@yahoo.com","Birthday":{"$date":"1972-03-14T00:00:00Z"},"FavoriteMovies":[{"$oid":"5ef9c4cc795b21d8ac986732"},{"$oid":"5ef9ce5b795b21d8ac986739"}]}
+{"_id":{"$oid":"5f035c79fee9e81e9b4470b9"},"FavoriteMovies":[],"Username":"rmartinez","Password":"love","Email":"rmartinez@yahoo.com","Birthday":{"$date":"1970-08-06T00:00:00Z"},"__v":0}
+{"_id":{"$oid":"5f035d1b8727271eb90ee0d9"},"FavoriteMovies":[],"Username":"ivill","Password":"love2","Email":"ivill@yahoo.com","Birthday":{"$date":"1975-10-06T00:00:00Z"},"__v":0}
+{"_id":{"$oid":"5f036088d7c1971ef9c82315"},"FavoriteMovies":[],"Username":"mmartine","Password":"love4","Email":"mmartine@yahoo.com","Birthday":{"$date":"1980-08-26T00:00:00Z"},"__v":0}
