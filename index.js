@@ -12,29 +12,50 @@ const Directors = Models.Director;
 
 const { check, validationResult } = require('express-validator');
 
-//Connects to mongo database
-// mongoose.connect('mongodb://localhost:27017/flixOlogyDB', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
-mongoose.connect(
-  'mongodb+srv://rmartinez:Coding68@flixology.9mn0j.mongodb.net/flixology?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
-
 const app = express();
 
 app.use(bodyParser.json());
+
+const cors = require('cors');
+app.use(cors());
 
 let auth = require('./auth')(app);
 
 const passport = require('passport');
 const { isEmpty } = require('lodash');
 require('./passport');
+
+let allowedOrigins = [
+  'http://localhost:8080',
+  'https://flixology.herokuapp.com/',
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        // If a specific origin isn’t found on the list of allowed origins
+        let message =
+          'The CORS policy for this application doesn’t allow access from origin ' +
+          origin;
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
+
+// Connects to mongo database
+// mongoose.connect('mongodb://localhost:27017/flixOlogyDB', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+mongoose.connect('process.env.CONNECTION_URI', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(morgan('common'));
 
@@ -135,21 +156,24 @@ app.get(
 //Allows new users to register
 app.post(
   '/users',
-  check('Username', 'Username is required').isLength({ min: 5 }),
-  check(
-    'Username',
-    'Username contains non alphanumeric character - not allowed.'
-  ).isAlphanumeric(),
-  check('Password', 'Password is required').not().isEmpty(),
-  check('Email', 'Email does not appear to be valid').isEmail(),
+  [
+    check('Username', 'Username is required').isLength({ min: 5 }),
+    check(
+      'Username',
+      'Username contains non alphanumeric characters - not allowed.'
+    ).isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail(),
+  ],
   (req, res) => {
-    let errors = validationResult(req);
+    var errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    let hashedPassword = Users.hashedPassword(req.body.Password);
+    var hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Username: req.body.Username })
-      .then((user) => {
+      .then(function (user) {
         if (user) {
           return res.status(400).send(req.body.Username + ' already exists');
         } else {
@@ -159,16 +183,16 @@ app.post(
             Email: req.body.Email,
             Birthday: req.body.Birthday,
           })
-            .then((user) => {
+            .then(function (user) {
               res.status(201).json(user);
             })
-            .catch((error) => {
+            .catch(function (error) {
               console.error(error);
               res.status(500).send('Error: ' + error);
             });
         }
       })
-      .catch((error) => {
+      .catch(function (error) {
         console.error(error);
         res.status(500).send('Error: ' + error);
       });
@@ -178,13 +202,15 @@ app.post(
 //Updates user info
 app.put(
   '/users/:Username',
-  check('Username', 'Username is required').isLength({ min: 5 }),
-  check(
-    'Username',
-    'Username contains non alphanumeric character - not allowed.'
-  ).isAlphanumeric(),
-  check('Password', 'Password is required').not().isEmpty(),
-  check('Email', 'Email does not appear to be valid').isEmail(),
+  [
+    check('Username', 'Username is required').isLength({ min: 5 }),
+    check(
+      'Username',
+      'Username contains non alphanumeric character - not allowed.'
+    ).isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail(),
+  ],
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     let errors = validationResult(req);
