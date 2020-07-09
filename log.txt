@@ -1,0 +1,5 @@
+mongoimport --host atlas-1412jf-shard-0/flixology-shard-00-00.9mn0j.mongodb.net:27017,flixology-shard-00-01.9mn0j.mongodb.net:27017,flixology-shard-00-02.9mn0j.mongodb.net:27017 --ssl --username rmartinez --password Coding68 --authenticationDatabase admin --db flixology --collection directors --type json --file directors.json
+
+mongodb+srv://rmartinez:Coding75@flixology.9mn0j.mongodb.net/flixology?retryWrites=true&w=majority
+
+mongo "mongodb+srv://flixology.9mn0j.mongodb.net/flixology" --username rmartinez
