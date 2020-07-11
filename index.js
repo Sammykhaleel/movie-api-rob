@@ -56,7 +56,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-             
+
 app.use(morgan('common'));
 
 app.use(express.static('public'));
@@ -66,10 +66,8 @@ app.get('/', (req, res) => {
 });
 
 //Retrieves all movies and info stored in db
-app.get('/movies', passport.authenticate('jwt', { session: false }), function (
-  req,
-  res
-) {
+// passport.authenticate('jwt', { session: false }),
+app.get('/movies', function (req, res) {
   Movies.find()
     .then((Movies) => res.json(Movies))
     .catch((error) => {
