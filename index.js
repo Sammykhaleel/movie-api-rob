@@ -90,40 +90,32 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //Retrieves all directors and information stored in db
-app.get(
-  '/directors',
-  passport.authenticate('jwt', { session: false }),
-  function (req, res) {
-    Directors.find().then((Directors) => {
-      res.json(Directors).catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      });
+//passport.authenticate('jwt', { session: false }),
+app.get('/directors', function (req, res) {
+  Directors.find().then((Directors) => {
+    res.json(Directors).catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
     });
-  }
-);
+  });
+});
 
 //Retrieves specific director and info by name
-app.get(
-  '/directors/:Name',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Directors.findOne({ Name: req.params.Name })
-      .then((director) => {
-        res.json(director);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      });
-  }
-);
+//passport.authenticate('jwt', { session: false }),
+app.get('/directors/:Name', (req, res) => {
+  Directors.findOne({ Name: req.params.Name })
+    .then((director) => {
+      res.json(director);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+});
 
 //Retrieves all genres and info stored in db
-app.get('/genres', passport.authenticate('jwt', { session: false }), function (
-  req,
-  res
-) {
+//passport.authenticate('jwt', { session: false }),
+app.get('/genres', function (req, res) {
   Genres.find().then((Genres) =>
     res.json(Genres).catch((error) => {
       console.error(error);
@@ -133,20 +125,17 @@ app.get('/genres', passport.authenticate('jwt', { session: false }), function (
 });
 
 //Retrieves specific genre info by name
-app.get(
-  '/genres/:Name',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Genres.findOne({ Name: req.params.Name })
-      .then((genre) => {
-        res.json(genre);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      });
-  }
-);
+//passport.authenticate('jwt', { session: false }),
+app.get('/genres/:Name', (req, res) => {
+  Genres.findOne({ Name: req.params.Name })
+    .then((genre) => {
+      res.json(genre);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+});
 
 //Allows new users to register
 app.post(
