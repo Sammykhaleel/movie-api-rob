@@ -21,9 +21,9 @@ app.use(cors());
 
 let auth = require('./auth')(app);
 
-//const passport = require('passport');
+const passport = require('passport');
 const { isEmpty } = require('lodash');
-//require('./passport');
+require('./passport');
 
 let allowedOrigins = [
   'http://localhost:8080',
@@ -93,15 +93,18 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //Retrieves all directors and information stored in db
-//passport.authenticate('jwt', { session: false }),
-app.get('/directors', function (req, res) {
-  Directors.find().then((Directors) => {
-    res.json(Directors).catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
+app.get(
+  '/directors',
+  passport.authenticate('jwt', { session: false }),
+  function (req, res) {
+    Directors.find().then((Directors) => {
+      res.json(Directors).catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
     });
-  });
-});
+  }
+);
 
 //Retrieves specific director and info by name
 app.get(
