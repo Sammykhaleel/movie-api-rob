@@ -21,9 +21,9 @@ app.use(cors());
 
 let auth = require('./auth')(app);
 
-const passport = require('passport');
+//const passport = require('passport');
 const { isEmpty } = require('lodash');
-require('./passport');
+//require('./passport');
 
 let allowedOrigins = [
   'http://localhost:8080',
@@ -67,7 +67,10 @@ app.get('/', (req, res) => {
 
 //Retrieves all movies and info stored in db
 // passport.authenticate('jwt', { session: false }),
-app.get('/movies', function (req, res) {
+app.get('/movies', passport.authenticate('jwt', { session: false }), function (
+  req,
+  res
+) {
   Movies.find()
     .then((Movies) => res.json(Movies))
     .catch((error) => {
@@ -77,34 +80,28 @@ app.get('/movies', function (req, res) {
 });
 
 //Retreives specific movie and info by title
-app.get(
-  '/movies/:Title',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Movies.findOne({ Title: req.params.Title })
-      .then((movie) => {
-        res.json(movie);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      });
-  }
-);
+//passport.authenticate('jwt', { session: false }),
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+});
 
 //Retrieves all directors and information stored in db
-app.get(
-  '/directors',
-  passport.authenticate('jwt', { session: false }),
-  function (req, res) {
-    Directors.find().then((Directors) => {
-      res.json(Directors).catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      });
+//passport.authenticate('jwt', { session: false }),
+app.get('/directors', function (req, res) {
+  Directors.find().then((Directors) => {
+    res.json(Directors).catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
     });
-  }
-);
+  });
+});
 
 //Retrieves specific director and info by name
 app.get(
