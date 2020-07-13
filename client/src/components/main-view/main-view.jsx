@@ -4,16 +4,6 @@ import axios from 'axios';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
-// class MainView extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = {};
-//   }
-//   render() {
-//     return <div className='main-view'></div>;
-//   }
-// }
-
 export class MainView extends React.Component {
   // One of the "hooks" available in a React Component
   constructor() {
