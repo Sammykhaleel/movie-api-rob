@@ -2,4 +2,16 @@
   color: steelblue;
 }
 
+img {
+  width: 10%;
+}
+
+.main-view {
+  cursor: pointer;
+}
+
+a {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=/src.78399e21.css.map */

@@ -14,7 +14,7 @@ export class MovieView extends React.Component {
 
     return (
       <div className='movie-view'>
-        <img className='movie-poster' src={movie.ImagePath} />
+        <img className='movie-poster' src={movie.ImageUrl} />
         <div className='movie-title'>
           <span className='label'>Title: </span>
           <span className='value'>{movie.Title}</span>
@@ -32,6 +32,15 @@ export class MovieView extends React.Component {
           <span className='label'>Director: </span>
           <span className='value'>{movie.Director.Name}</span>
         </div>
+        <button>
+          <a
+            onClick={() => {
+              window.location.href = '/movies/';
+            }}
+          >
+            Back
+          </a>
+        </button>
       </div>
     );
   }
