@@ -88,23 +88,12 @@ app.get('/movies/:Title', (req, res) => {
     });
 });
 
-//Retrieves all directors and information stored in db
-//passport.authenticate('jwt', { session: false }),
-app.get('/director', function (req, res) {
-  Director.find().then((Directors) => {
-    res.json(Directors).catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
-    });
-  });
-});
-
 //Retrieves specific director and info by name
 //passport.authenticate('jwt', { session: false }),
-app.get('/director/:Name', (req, res) => {
-  Director.findOne({ Name: req.params.Name })
-    .then((director) => {
-      res.json(director);
+app.get('/movies/director/:Name', (req, res) => {
+  Movies.findOne({ 'Director.Name': req.params.Name })
+    .then(function (movie) {
+      res.json(movie.Director);
     })
     .catch((error) => {
       console.error(error);
@@ -112,23 +101,12 @@ app.get('/director/:Name', (req, res) => {
     });
 });
 
-//Retrieves all genres and info stored in db
-//passport.authenticate('jwt', { session: false }),
-app.get('/genre', function (req, res) {
-  Genre.find().then((Genres) =>
-    res.json(Genres).catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
-    })
-  );
-});
-
 //Retrieves specific genre info by name
 //passport.authenticate('jwt', { session: false }),
-app.get('/genre/:Name', (req, res) => {
-  Genre.findOne({ Name: req.params.Name })
-    .then((genre) => {
-      res.json(genre);
+app.get('/movies/genre/:Name', (req, res) => {
+  Movies.findOne({ 'Genre.Name': req.params.Name })
+    .then(function (movie) {
+      res.json(movie.Genre);
     })
     .catch((error) => {
       console.error(error);

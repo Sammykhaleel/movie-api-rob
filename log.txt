@@ -3,3 +3,7 @@ mongoimport --host atlas-1412jf-shard-0/flixology-shard-00-00.9mn0j.mongodb.net:
 mongodb+srv://rmartinez:Coding75@flixology.9mn0j.mongodb.net/flixology?retryWrites=true&w=majority
 
 mongo "mongodb+srv://flixology.9mn0j.mongodb.net/flixology" --username rmartinez
+
+mongoimport --host atlas-1412jf-shard-0/flixology-shard-00-00.9mn0j.mongodb.net:27017,flixology-shard-00-01.9mn0j.mongodb.net:27017,flixology-shard-00-02.9mn0j.mongodb.net:27017 --ssl --username rmartinez --password Coding30 --authenticationDatabase admin --db flixology --collection movies --type json --file movies.json
+
+mongodb+srv://rmartinez:Coding30@flixology.9mn0j.mongodb.net/<dbname>?retryWrites=true&w=majority
