@@ -1,4 +1,9 @@
+//Importing react and bootstrap components
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export class MovieView extends React.Component {
   constructor() {
@@ -13,35 +18,54 @@ export class MovieView extends React.Component {
     if (!movie) return null;
 
     return (
-      <div className='movie-view'>
-        <img className='movie-poster' src={movie.ImageUrl} />
-        <div className='movie-title'>
-          <span className='label'>Title: </span>
-          <span className='value'>{movie.Title}</span>
+      <Container>
+        <div className='movie-view'>
+          <Row>
+            <Col xs={2}></Col>
+            <Col>
+              <img className='movie-poster' src={movie.ImageUrl} />
+              <div className='movie-title'>
+                <span className='label'>
+                  <strong>Title: </strong>
+                </span>
+                <span className='value'>
+                  <span>{movie.Title}</span>
+                </span>
+              </div>
+            </Col>
+            <Col>
+              <div className='movie-description'>
+                <span className='label'>
+                  <strong>Description: </strong>
+                </span>
+                <span className='value'>{movie.Description}</span>
+              </div>
+              <div className='movie-genre'>
+                <span className='label'>
+                  <strong>Genre: </strong>
+                </span>
+                <span className='value'>{movie.Genre.Name}</span>
+              </div>
+              <div className='movie-director'>
+                <span className='label'>
+                  <strong>Director: </strong>
+                </span>
+                <span className='value'>{movie.Director.Name}</span>
+              </div>
+              <Button variant='dark'>
+                <a
+                  onClick={() => {
+                    window.location.href = '/movies/';
+                  }}
+                >
+                  Back
+                </a>
+              </Button>
+            </Col>
+            <Col xs={2}></Col>
+          </Row>
         </div>
-        <div className='movie-description'>
-          <span className='label'>Description: </span>
-          <span className='value'>{movie.Description}</span>
-        </div>
-
-        <div className='movie-genre'>
-          <span className='label'>Genre: </span>
-          <span className='value'>{movie.Genre.Name}</span>
-        </div>
-        <div className='movie-director'>
-          <span className='label'>Director: </span>
-          <span className='value'>{movie.Director.Name}</span>
-        </div>
-        <button>
-          <a
-            onClick={() => {
-              window.location.href = '/movies/';
-            }}
-          >
-            Back
-          </a>
-        </button>
-      </div>
+      </Container>
     );
   }
 }

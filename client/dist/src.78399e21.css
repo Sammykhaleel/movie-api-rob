@@ -1,9 +1,12 @@
-.my-flix {
-  color: steelblue;
+.Button {
+  padding: 3px;
 }
-
+.Button {
+  padding: 3px;
+  left: 15px;
+}
 img {
-  width: 10%;
+  width: 40%;
 }
 
 .main-view {
