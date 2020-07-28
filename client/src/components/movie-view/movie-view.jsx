@@ -1,9 +1,9 @@
 //Importing react and bootstrap components
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button, Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
+import { Link } from 'react-router-dom';
 
 export class MovieView extends React.Component {
   constructor() {
@@ -20,6 +20,8 @@ export class MovieView extends React.Component {
     return (
       <Container>
         <div className='movie-view'>
+          <br></br>
+          <br></br>
           <Row>
             <Col xs={2}></Col>
             <Col>
@@ -44,23 +46,25 @@ export class MovieView extends React.Component {
                 <span className='label'>
                   <strong>Genre: </strong>
                 </span>
-                <span className='value'>{movie.Genre.Name}</span>
+                <Link to={`/movies/genres/${movie.Genre.Name}`}>
+                  <Button className='value' variant='link'>
+                    {movie.Genre.Name}
+                  </Button>
+                </Link>
               </div>
               <div className='movie-director'>
                 <span className='label'>
                   <strong>Director: </strong>
                 </span>
-                <span className='value'>{movie.Director.Name}</span>
+                <Link to={`/movies/directors/${movie.Director.Name}`}>
+                  <Button className='value' variant='link'>
+                    {movie.Director.Name}
+                  </Button>
+                </Link>
               </div>
-              <Button variant='dark'>
-                <a
-                  onClick={() => {
-                    window.location.href = '/movies/';
-                  }}
-                >
-                  Back
-                </a>
-              </Button>
+              <Link to={`/`}>
+                <Button variant='dark link'>Back</Button>
+              </Link>
             </Col>
             <Col xs={2}></Col>
           </Row>

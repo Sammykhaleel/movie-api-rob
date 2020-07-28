@@ -1,4 +1,4 @@
-//Importing react and bootstrap components
+//Importing scss, react and bootstrap components
 import React, { useState } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
@@ -6,9 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
-//Imports .scss
 import './login-view.scss';
+import { Link } from 'react-router-dom';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');
@@ -17,10 +16,9 @@ export function LoginView(props) {
   //Allows to login with any credentials
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    // Send a request to the server for authentication then call props.onLoggedIn(username)
+    /* Send a request to the server for authentication */
     axios
-      .post('https://flixology.herokuapp.com/users', {
+      .post('https://flixology.herokuapp.com/login', {
         Username: username,
         Password: password,
       })
@@ -29,12 +27,14 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch((e) => {
-        console.log('No such user');
+        console.log('no such user');
       });
   };
 
   return (
     <Container>
+      <br></br>
+      <br></br>
       <Form>
         <h4>Already Registered?</h4>
         <h5>Please Login</h5>
@@ -69,6 +69,12 @@ export function LoginView(props) {
             </Col>
           </Row>
         </Form.Group>
+        <h5>Not yet registered?</h5>
+        <Link to={`/register`}>
+          <Button variant='link'>
+            <h5>Register Here</h5>
+          </Button>
+        </Link>
       </Form>
     </Container>
   );
