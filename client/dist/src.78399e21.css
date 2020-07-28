@@ -5,12 +5,11 @@
 .Button {
   padding: 3px;
 }
+b {
+  cursor: pointer;
+}
 img {
   width: 40%;
-}
-
-.main-view {
-  cursor: pointer;
 }
 
 a {

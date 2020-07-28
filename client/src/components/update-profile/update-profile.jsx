@@ -88,7 +88,7 @@ export function UpdateProfile(props) {
         </Form.Group>
         <Button
           className='update-btn'
-          variant='primary'
+          variant='dark'
           type='submit'
           onClick={handleUpdate}
         >
@@ -97,7 +97,7 @@ export function UpdateProfile(props) {
         <br />
         <br />
         <Link to={`/user`}>
-          <Button className='back-btn' variant='primary'>
+          <Button className='back-btn' variant='dark'>
             Back
           </Button>
         </Link>

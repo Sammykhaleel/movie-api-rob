@@ -71,7 +71,7 @@ export function LoginView(props) {
         </Form.Group>
         <h5>Not yet registered?</h5>
         <Link to={`/register`}>
-          <Button variant='link'>
+          <Button variant='dark link'>
             <h5>Register Here</h5>
           </Button>
         </Link>
