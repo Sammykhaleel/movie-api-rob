@@ -49335,13 +49335,17 @@ exports.RegistrationView = RegistrationView;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _reactBootstrap = require("react-bootstrap");
-
-var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
-
 var _axios = _interopRequireDefault(require("axios"));
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
+
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
 require("./registration-view.scss");
+
+var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49361,7 +49365,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function RegistrationView(props) {
+function RegistrationView() {
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       username = _useState2[0],
@@ -49379,80 +49383,176 @@ function RegistrationView(props) {
 
   var _useState7 = (0, _react.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      birthday = _useState8[0],
-      setBirthday = _useState8[1]; //Allows to login with any credentials
-
+      dob = _useState8[0],
+      setDob = _useState8[1];
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-
-    _axios.default.post('https://flixology.herokuapp.com/users', {
+    var createdUser = {
       Username: username,
       Password: password,
       Email: email,
-      Birthday: birthday
-    }).then(function (response) {
-      var data = response.data;
-      console.log(data);
-      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+      Birthday: dob
+    };
+
+    _axios.default.post('https://flixology.herokuapp.com/users', createdUser).then(function (response) {
+      console.log(response);
+      console.log(response.data);
+      alert('User created successfully');
+      window.open('/client', '_self');
     }).catch(function (e) {
-      console.log('error registering the user');
+      console.log(e.response);
+      alert('Error processing request');
     });
   };
 
-  return _react.default.createElement(_Container.default, {
-    className: "container"
-  }, _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactBootstrap.Form, null, _react.default.createElement(_reactBootstrap.Form.Group, {
-    className: "registration"
-  }, _react.default.createElement("h4", null, "Please Register"), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Form.Label, {
-    className: "Label"
-  }, "Username:"), _react.default.createElement(_reactBootstrap.Form.Control, {
+  return _react.default.createElement(_Form.default, {
+    style: {
+      width: '32rem',
+      margin: 'auto',
+      textAlign: 'center'
+    }
+  }, _react.default.createElement(_Form.default.Group, {
+    controlId: "formBasicUsername"
+  }, _react.default.createElement(_Form.default.Label, null, "Username"), _react.default.createElement(_Form.default.Control, {
+    type: "text",
+    placeholder: "Enter username",
     value: username,
     onChange: function onChange(e) {
       return setUsername(e.target.value);
-    },
-    className: "Control",
-    type: "text",
-    placeholder: "Enter Username"
-  })), _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Form.Label, {
-    className: "Label"
-  }, "Email:"), _react.default.createElement(_reactBootstrap.Form.Control, {
-    value: email,
-    onChange: function onChange(e) {
-      return setEmail(e.target.value);
-    },
-    className: "email",
-    type: "email",
-    placeholder: "Enter Email"
-  }))), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Form.Label, {
-    className: "Label"
-  }, "Birthday:"), _react.default.createElement(_reactBootstrap.Form.Control, {
-    value: birthday,
-    onChange: function onChange(e) {
-      return setBirthday(e.target.value);
-    },
-    className: "birthday",
-    type: "date",
-    placeholder: "Enter Birthday"
-  })), _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Form.Label, {
-    className: "Label"
-  }, "Password:"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    }
+  })), _react.default.createElement(_Form.default.Group, {
+    controlId: "formBasicPassword"
+  }, _react.default.createElement(_Form.default.Label, null, "Password"), _react.default.createElement(_Form.default.Control, {
+    type: "password",
+    placeholder: "Password",
     value: password,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
-    },
-    className: "Control2",
-    type: "password",
-    placeholder: "Enter Password"
-  }))), _react.default.createElement(_reactBootstrap.Row, {
-    className: "Button"
-  }, _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Button, {
-    type: "button",
-    variant: "dark",
+    }
+  })), _react.default.createElement(_Form.default.Group, {
+    controlId: "formBasicEmail"
+  }, _react.default.createElement(_Form.default.Label, null, "Email address"), _react.default.createElement(_Form.default.Control, {
+    type: "email",
+    value: email,
+    placeholder: "Enter email",
+    onChange: function onChange(e) {
+      return setEmail(e.target.value);
+    }
+  })), _react.default.createElement(_Form.default.Group, {
+    controlId: "formBasicDate"
+  }, _react.default.createElement(_Form.default.Label, null, "Date of Birth"), _react.default.createElement(_Form.default.Control, {
+    type: "date",
+    value: dob,
+    placeholder: "12/31/1986",
+    onChange: function onChange(e) {
+      return setDob(e.target.value);
+    }
+  })), _react.default.createElement(_Button.default, {
+    variant: "primary",
+    type: "submit",
     onClick: handleSubmit
-  }, "Submit"))))));
-}
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","axios":"../node_modules/axios/index.js","./registration-view.scss":"components/registration-view/registration-view.scss"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
+  }, "Submit"), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/"
+  }, _react.default.createElement(_Button.default, {
+    variant: "link",
+    type: "submit"
+  }, "Cancel")));
+} // //Importing react and bootstrap components
+// import React, { useState } from 'react';
+// import { Button, Row, Col, Form } from 'react-bootstrap';
+// import Container from 'react-bootstrap/Container';
+// import axios from 'axios';
+// //Importing scss
+// import './registration-view.scss';
+// export function RegistrationView(props) {
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [email, setEmail] = useState('');
+//   const [birthday, setBirthday] = useState('');
+//   //Allows to login with any credentials
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     axios
+//       .post('https://flixology.herokuapp.com/users', {
+//         Username: username,
+//         Password: password,
+//         Email: email,
+//         Birthday: birthday,
+//       })
+//       .then((response) => {
+//         const data = response.data;
+//         console.log(data);
+//         window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+//       })
+//       .catch((e) => {
+//         console.log('error registering the user');
+//       });
+//   };
+//   return (
+//     <Container className='container'>
+//       <br />
+//       <br />
+//       <Form>
+//         <Form.Group className='registration'>
+//           <h4>Please Register</h4>
+//           <Row>
+//             <Col>
+//               <Form.Label className='Label'>Username:</Form.Label>
+//               <Form.Control
+//                 value={username}
+//                 onChange={(e) => setUsername(e.target.value)}
+//                 className='Control'
+//                 type='text'
+//                 placeholder='Enter Username'
+//               />
+//             </Col>
+//             <Col>
+//               <Form.Label className='Label'>Email:</Form.Label>
+//               <Form.Control
+//                 value={email}
+//                 onChange={(e) => setEmail(e.target.value)}
+//                 className='email'
+//                 type='email'
+//                 placeholder='Enter Email'
+//               />
+//             </Col>
+//           </Row>
+//           <Row>
+//             <Col>
+//               <Form.Label className='Label'>Birthday:</Form.Label>
+//               <Form.Control
+//                 value={birthday}
+//                 onChange={(e) => setBirthday(e.target.value)}
+//                 className='birthday'
+//                 type='date'
+//                 placeholder='Enter Birthday'
+//               />
+//             </Col>
+//             <Col>
+//               <Form.Label className='Label'>Password:</Form.Label>
+//               <Form.Control
+//                 value={password}
+//                 onChange={(e) => setPassword(e.target.value)}
+//                 className='Control2'
+//                 type='password'
+//                 placeholder='Enter Password'
+//               />
+//             </Col>
+//           </Row>
+//           <Row className='Button'>
+//             <Col>
+//               <Button type='button' variant='dark' onClick={handleSubmit}>
+//                 Submit
+//               </Button>
+//             </Col>
+//           </Row>
+//         </Form.Group>
+//       </Form>
+//     </Container>
+//   );
+// }
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./registration-view.scss":"components/registration-view/registration-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49674,7 +49774,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
       var username = localStorage.getItem('user');
 
-      _axios.default.get("https://myflix16.herokuapp.com/users/".concat(username), {
+      _axios.default.get("https://flixology.herokuapp.com/users/".concat(username), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -49695,7 +49795,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     value: function deleteFavoriteMovie(movieId) {
       console.log(this.props.movies);
 
-      _axios.default.delete("https://myflix16.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(movieId), {
+      _axios.default.delete("https://flixology.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(movieId), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -49708,7 +49808,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteUser",
     value: function deleteUser(e) {
-      _axios.default.delete("https://myflix16.herokuapp.com/users/".concat(localStorage.getItem('user')), {
+      _axios.default.delete("https://flixology.herokuapp.com/users/".concat(localStorage.getItem('user')), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -50249,7 +50349,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49705" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57016" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
