@@ -1,11 +1,13 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { setMovies } from '../../actions/actions';
+import MoviesList from '../movies-list/movies-list';
 import { LoginView } from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { DirectorView } from '../director-view/director-view';
@@ -13,32 +15,13 @@ import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { UpdateProfile } from '../update-profile/update-profile';
 
-import './main-view.scss';
-
-export class MainView extends React.Component {
+class MainView extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      movies: [],
       user: null,
     };
-  }
-
-  getMovies(token) {
-    axios
-      .get('https://flixology.herokuapp.com/movies', {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        // Assign the result to the state
-        this.setState({
-          movies: response.data,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   componentDidMount() {
@@ -51,14 +34,21 @@ export class MainView extends React.Component {
     }
   }
 
-  // onMovieClick(movie) {
-  //   this.setState({
-  //     selectedMovie: movie,
-  //   });
-  // }
+  getMovies(token) {
+    axios
+      .get('https://flixology.herokuapp.com/movies', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        // Assign the result to the state
+        this.props.setMovies(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   onLoggedIn(authData) {
-    console.log(authData);
     this.setState({
       user: authData.user.Username,
     });
@@ -78,13 +68,11 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, user } = this.state;
-
-    // Before the movies have been loaded
-    if (!movies) return <div className='main-view' />;
+    let { movies } = this.props;
+    let { user } = this.state;
 
     return (
-      <Router>
+      <Router basename='/client'>
         <Container>
           <div className='main-view'>
             <Navbar className='fixed-top' bg='dark' variant='dark'>
@@ -109,7 +97,7 @@ export class MainView extends React.Component {
                     return (
                       <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                     );
-                  return movies.map((m) => <MovieCard key={m._id} movie={m} />);
+                  return <MoviesList movies={movies} />;
                 }}
               />
 
@@ -169,3 +157,9 @@ export class MainView extends React.Component {
     );
   }
 }
+
+let mapStateToProps = (state) => {
+  return { movies: state.movies };
+};
+
+export default connect(mapStateToProps, { setMovies })(MainView);

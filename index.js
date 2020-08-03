@@ -20,6 +20,7 @@ app.use(cors());
 let auth = require('./auth')(app);
 
 const passport = require('passport');
+const path = require('path');
 const { isEmpty } = require('lodash');
 require('./passport');
 
@@ -59,6 +60,12 @@ mongoose.connect(process.env.CONNECTION_URI, {
 app.use(morgan('common'));
 
 app.use(express.static('public'));
+
+app.use('/client', express.static(path.join(__dirname, 'client', 'dist')));
+
+app.get('/client/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 app.get('/', (req, res) => {
   res.send('Welcome to flixOlogy! Please login:');
