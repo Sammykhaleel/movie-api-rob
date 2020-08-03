@@ -67,9 +67,9 @@ app.get('/client/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 
-// app.get('/', (req, res) => {
-//   res.send('Welcome to flixOlogy! Please login:');
-// });
+app.get('/', (req, res) => {
+  res.send('Welcome to flixOlogy! Please login:');
+});
 
 //Retrieves all movies and info stored in db
 app.get('/movies', passport.authenticate('jwt', { session: false }), function (
