@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export class DirectorView extends React.Component {
@@ -18,18 +18,28 @@ export class DirectorView extends React.Component {
     return (
       <Container>
         <div className='director-view'>
-          <br></br>
-          <br></br>
-          <Row>
-            <Col>
-              <span>{director.Name}</span>
-            </Col>
-            <Col>
-              <span>{director.Bio}</span>
-              <span>{director.Birthyear}</span>
-              {/* <span>{director.Deathyear}</span> */}
-            </Col>
-          </Row>
+          <Card>
+            <br></br>
+            <br></br>
+            <Row>
+              <Col xs={1}></Col>
+              <Col>
+                <span>{director.Name}</span>
+              </Col>
+              <Col xs={8}>
+                <span>{director.Bio}</span>
+                <span>{director.Birthyear}</span>
+              </Col>
+            </Row>
+            <br />
+            <Row>
+              <Link to={`/`}>
+                <Button variant='dark link'>Back</Button>
+              </Link>
+            </Row>
+            <br />
+            <br />
+          </Card>
         </div>
       </Container>
     );

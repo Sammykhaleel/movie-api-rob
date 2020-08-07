@@ -28,8 +28,4 @@ function MoviesList(props) {
   );
 }
 
-// MoviesList.propTypes = {
-//   visibilityFilter: PropTypes.string.isRequired,
-// };
-
 export default connect(mapStateToProps)(MoviesList);

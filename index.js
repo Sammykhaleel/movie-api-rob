@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
@@ -20,7 +21,7 @@ app.use(cors());
 let auth = require('./auth')(app);
 
 const passport = require('passport');
-const path = require('path');
+
 const { isEmpty } = require('lodash');
 require('./passport');
 
